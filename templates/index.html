@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Market Visualizer</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f9;
+            padding: 40px;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            font-size: 16px;
+            width: 220px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .chart {
+            margin-top: 40px;
+        }
+        .buttons {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .about-link {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .about-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Stock Market Visualizer</h1>
+
+        <form method="POST">
+            <input type="text" name="symbol" placeholder="Enter stock symbol (e.g. AAPL)" value="{{ symbol }}" required>
+            <select name="chart_type">
+                <option value="line" {% if selected_type == 'line' %}selected{% endif %}>Line Chart</option>
+                <option value="candlestick" {% if selected_type == 'candlestick' %}selected{% endif %}>Candlestick Chart</option>
+            </select>
+            <button type="submit">Visualize</button>
+        </form>
+
+        <div class="chart">
+            {% if chart %}
+                {{ chart|safe }}
+                <div class="buttons">
+                    <button onclick="downloadChart()">⬇️ Download Chart</button>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="about-link">
+            <p><a href="/about">About this project</a></p>
+        </div>
+    </div>
+
+    <script>
+        function downloadChart() {
+            const chartDiv = document.querySelector('.chart > div');
+            if (!chartDiv) return;
+
+            Plotly.downloadImage(chartDiv, {
+                format: 'png',
+                filename: 'stock_chart',
+                height: 600,
+                width: 900
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+

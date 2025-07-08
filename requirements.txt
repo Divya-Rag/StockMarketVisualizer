@@ -1,0 +1,5 @@
+txt
+
+Flask
+yfinance
+plotly
