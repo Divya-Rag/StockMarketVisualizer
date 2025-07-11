@@ -22,5 +22,5 @@ A Flask-based web application that allows users to visualize real-time stock mar
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/StockMarketVisualizer.git
+   git clone https://github.com/Divya-Rag/StockMarketVisualizer.git
    cd StockMarketVisualizer
